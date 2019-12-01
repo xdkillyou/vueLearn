@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>v-once</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <h3 v-once>{{message}}</h3>
+        <!-- v-once只允許一次插值，data中的內容改變並不會影響到 -->
+        <input type="text" v-model='message'>
+    </div>
+
+    <script>
+        new Vue({
+            el : '#app',
+            data : {
+                message :　'hello'
+            },
+        })
+    </script>
+</body>
+</html>

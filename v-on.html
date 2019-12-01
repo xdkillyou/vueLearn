@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>v-on</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        div{
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div><button v-on:click='count+=1'>點我</button> {{count}}</div>
+        <!-- 綁定事件，利用表達式簡化 -->
+        <div><button @click='add'>點我</button> {{count}}</div>
+        <!-- v-on縮寫成 @event，後面為methods的function -->
+        <form>
+            <button type="submit" @click.prevent='add'>我是submit</button>
+            <!-- vue有提供事件修飾符，減去寫在function中的麻煩 -->
+        </form>
+    </div>
+    <script>
+        var app = new Vue({
+            el : '#app',
+            data : {
+                count: 0,
+            },
+            methods:{
+                // add: function(){
+                //     this.count+=1;
+                // }
+                // 可以縮寫成
+                add(){
+                    this.count+=1;
+                    // this指向vue實例
+                }
+            }
+        })
+    </script>
+</body>
+</html>

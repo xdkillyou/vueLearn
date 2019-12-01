@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>v-model</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        
+        <h3>{{message}}</h3>
+        <input type="text" v-model='message'>
+        <!-- v-model雙向數據綁定，透過view model監聽及更新 -->
+        <input type="text" v-model.lazy='message'>
+        <!-- 修飾符lazy，在脫離focus狀態時才更新 -->
+        <input type="text" v-model.number='message' @click='check'>
+        <!-- 修飾符number，轉型為數字 -->
+        <input type="text" v-model.trim='message' @click='check'>
+        <!-- 修飾符trim，將頭尾空白去除 -->
+
+        <hr>
+
+        <!-- 其他input選項 -->
+        <!-- checkbox -->
+        <input type="checkbox" v-model='checkItem'>
+        <button @click='changeboo'>{{checkItem}}</button>
+        <label><input type="checkbox" value="ball" v-model='dothing'>打球</label>
+        <label><input type="checkbox" value="book" v-model='dothing'>看書</label>
+        <p>要做什麼:{{dothing}}</p>
+        
+        <hr>
+        <!-- radio -->
+        <label><input type="radio" value="one" v-model='pick'>一</label>
+        <label><input type="radio" value="two" v-model='pick'>二</label>
+        <p>你要選:{{pick}}</p>
+        
+        <hr>
+        <!-- select -->
+        <select v-model='selectwhat'>
+            <option disabled value="">請選擇</option>
+            <option value="one">1</option>
+            <option value="two">2</option>
+            <option value="three">3</option>
+        </select>
+        <p>你要選:{{selectwhat}}</p>
+    </div>
+
+    <script>
+        new Vue({
+            el : '#app',
+            data : {
+                message :　'123',
+                checkItem : true,
+                dothing : [],
+                pick : '',
+                selectwhat: '',
+            },
+            methods : {
+                check(){
+                    console.log(this.message);
+                },
+                changeboo(){
+                    this.checkItem = !this.checkItem;
+                }
+            },
+        })
+        
+    </script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>v-bind</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <input type="checkbox" v-bind:checked='select' :disabled='select'> 初始值
+        <!-- v-bind 屬性值，改變屬性值 -->
+        <button v-on:click='count++' v-bind:class='classObj'>按</button>
+        <!-- 在裡面也可以寫表達式 | -->
+        {{count}}
+        <div :class='classAll'>你好</div>
+        <!-- v-bind的縮寫:，可以利用陣列一次添加多個class -->
+        <div class="cool" :class='[select ? classAll[0] : classAll[1]]'></div>
+        <!-- 利用三元來判斷使用之class -->
+        <div :class=obj.new></div>
+        <!-- 個別抓取object內容 -->
+        <div :style='inlineStyle'></div>
+    </div>
+
+    <script>
+        new Vue({
+            el : '#app',
+            data : {
+                count : 0,
+                select : true,
+                // 利用物件寫進class判斷active OR error
+                classObj : {
+                    active: false,
+                    error: true,
+                },
+                obj : {
+                    new: 'cool'
+                },
+                // 利用陣列一次寫多個class，也可以利用陣列增減做處理
+                classAll : ['name','name2'],
+                inlineStyle : {
+                    color : 'red',
+                    fontSize : '16px'
+                    // 要寫進style的要改成駝峰式fontSize
+                },
+            }
+        })
+    </script>
+</body>
+</html>

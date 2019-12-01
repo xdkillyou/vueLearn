@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Vue class1</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <span v-bind:title="date">v-bind抓屬性，滑鼠移過來</span>
+        <br>
+        <div v-if="displaynone">v-if我會徹底消失</div><button v-on:click = "display">CLICK</button>
+        <br>
+        <div v-show="opacitynone">v-show我消失會留下痕跡</div><button v-on:click = "opacity">CLICK</button>
+    </div>
+
+    <div id="app2">
+        <ul>
+            <li v-for = "lists in todos">{{lists.text}}</li>
+        </ul>
+    </div>
+    
+    <div id="app3">
+        <button v-on:click = "reverseText">點我</button>
+    </div>
+
+    <div id="app4">
+        <input type="text" v-model='message'>
+        <!-- v-model 雙向綁定 -->
+        {{message}}
+        <p v-once>{{message}}</p>
+        <p v-html = html><span>??</span></p>
+        <input v-model = html>
+    </div>
+
+    <script>
+        var app = new Vue({
+            el : "#app",    
+            data : {        
+                date : new Date().toLocaleString(),
+                age : 18,
+                displaynone : true,
+                opacitynone : true
+            },
+            methods: {
+                display : function(){
+                    this.displaynone = !this.displaynone
+                },
+                opacity : function(){
+                    this.opacitynone = !this.opacitynone
+                }
+            }
+        })   
+
+        var app2 = new Vue({
+            el : "#app2",
+            data : {
+                todos : [
+                    { text : "學習"},
+                    { text : "上課"},
+                    { text : "打工"}
+                ]
+            }
+        }) 
+        console.log(app2.$mount().todos);   //如果要在app2外取用data資料
+
+        var app3 = new Vue({
+            el : "#app3",
+            data : {
+                text : "hello world"
+            },
+            methods : {     //方法
+                reverseText: function(){
+                    this.text = this.text.split("").reverse().join("");
+                    console.log(this.text)
+                }
+            }
+        })
+        console.log(app3.$mount().text);    //如果要在app3外取用data資料
+
+        new Vue({
+            el : '#app4',
+            data : {
+                message : "嗨",
+                html : '<p>嗨</p>'
+            }
+        })
+
+        
+    </script>
+</body>
+</html>
