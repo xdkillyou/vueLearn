@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>v-show</title>
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <!-- v-show與v-if只有一個差別就是，
+            v-show消失了一樣會render出架構(disable: none) -->
+        <button @click='showChange'>click</button>
+        <hr>
+        <div v-show='show'>嗨我要消失了</div>
+    </div>
+
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                show: true
+            },
+            methods: {
+                showChange(){
+                    this.show = !this.show;        
+                }
+            },
+        })    
+    </script>    
+</body>
+</html>

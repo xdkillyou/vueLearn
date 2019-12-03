@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>v-if/v-else</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <button @click='showChange'>click</button>
+        <hr>
+        <!-- v-if控制是否render畫面，消失不會出現在架構上 -->
+        <div v-if='show'>
+            <input type="text" placeholder="我是輸入框１">
+        </div>
+        <!-- if後面一定要接著else，否則報錯 -->
+        <div v-else>
+            <input type="text" placeholder="那我是誰？">
+        </div>
+        <!-- ----------- -->
+        <hr>
+        <h3>第二段</h3>
+        <hr>
+        <button @click='showChange2'>點我</button>
+        <hr>
+        <div v-if='show'> <!-- show為true時顯示 -->
+            <input type="text" placeholder="我是輸入框１">
+        </div>
+        <div v-else-if='show2'> <!-- show為false且show2為true時顯示 -->
+            <input type="text" placeholder="我是輸入框2">
+        </div>
+        <div v-else> <!-- show & show2為fasle時顯示 -->
+            <input type="text" placeholder="我是輸入??">
+        </div>
+    </div>
+    
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                show: true,
+                show2: false,
+            },
+            methods: {
+                showChange(){
+                    this.show = !this.show;
+                },
+                showChange2(){
+                    this.show2 = !this.show2;
+                }
+            },
+        })
+    </script>
+</body>
+</html>

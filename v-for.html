@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>v-for</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <input type="text" v-model='newList' v-on:keyup.enter='add'>
+        <button v-on:click.prevent='add'>New</button>
+        <ul>
+            <li v-for='list in lists'>{{list}}</li>
+            <!-- lists為data中的array，list為value(自己命名) -->
+            <li v-for='list of lists'>{{list}}</li>
+            <!-- 也可以改寫成of -->
+            <li v-for='(list,index) in lists'>{{list}}{{index}}</li>
+            <!-- 可以塞入兩個變數(value,index) -->
+        </ul>
+        <div v-for='item in items'>{{item}}</div>
+        <!-- 物件也可以使用 -->
+        <div v-for='(item,key) in items'>{{key}}:{{item}}</div>
+        <!-- 可以塞入兩個變數(value,key) -->
+    </div>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                newList:'',
+                lists: [
+                    'book',
+                    'apple',
+                    'pen'
+                ],
+                items: {
+                    name: 'book',
+                    price: 100,
+                    count: 5
+                },
+            },
+            methods: {
+                add(){
+                    this.lists.push(this.newList);
+                    this.newList = '';
+                }
+            },
+        })
+    </script>
+</body>
+</html>
