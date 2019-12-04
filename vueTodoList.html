@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>vueTodoList</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+    <style>
+        #pad{
+            border: solid 1px #888;
+            width: 300px;
+        }
+        .listItem span{
+            display: inline-block;
+            /* text-align: right; */
+            float: right;
+            margin-right: 20px;
+        }
+        .text{
+            text-align: center;
+            padding: 10px;
+        }
+    </style>
+<body>
+    <!-- todoList need
+    array todothing
+    input text todothing
+    button click add list
+    remove todothing -->
+
+    <div id="app">
+        <input type="text" v-model='newList' @keyup.enter='add'>
+        <button @click='add'>add</button>
+        <hr>
+        <h3>代辦事項</h3>
+        <div id="pad">
+            <ol v-if='text'>
+                <li class="listItem" v-for='(list,index) in lists'>{{list}}<span @click='deleteList(index)'>&times</span></li>
+            </ol>
+            <div v-else class="text">目前無待辦事項</div>
+        </div>
+    </div>
+
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                text: false,
+                newList: '',
+                lists: [],
+            },methods: {
+                add(){
+                    if(this.newList.trim() === '') return;
+                    this.text = true;
+                    this.lists.push(this.newList);
+                    this.newList = '';
+                },
+                deleteList(index){
+                    this.lists.splice(index,1);
+                    if(this.lists.length == 0){
+                        this.text = !this.text;
+                    }
+                }
+            },
+        })
+    </script>    
+</body>
+</html>
