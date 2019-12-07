@@ -9,10 +9,11 @@
 </head>
 <body>
     <div id="app">
+        <!-- v-bind - 為單向綁定，只render一次 -->
         <input type="checkbox" v-bind:checked='select' :disabled='select'> 初始值
         <!-- v-bind 屬性值，改變屬性值 -->
         <button v-on:click='count++' v-bind:class='classObj'>按</button>
-        <!-- 在裡面也可以寫表達式 | -->
+        <!-- 在裡面也可以寫表達式 | (產生結果是值的話就是表達式)-->
         {{count}}
         <div :class='classAll'>你好</div>
         <!-- v-bind的縮寫:，可以利用陣列一次添加多個class -->

@@ -13,8 +13,6 @@
             width: 300px;
         }
         .listItem span{
-            display: inline-block;
-            /* text-align: right; */
             float: right;
             margin-right: 20px;
         }
@@ -32,14 +30,17 @@
 
     <div id="app">
         <input type="text" v-model='newList' @keyup.enter='add'>
+        <!-- 監聽keyup且為enter時觸發，透過v-model雙向綁定data中的資料，以便在mothods中取用 -->
         <button @click='add'>add</button>
         <hr>
         <h3>代辦事項</h3>
         <div id="pad">
             <ol v-if='text'>
                 <li class="listItem" v-for='(list,index) in lists'>{{list}}<span @click='deleteList(index)'>&times</span></li>
+                <!-- click觸發deleteList()，將前面v-for的index值帶入function -->
             </ol>
             <div v-else class="text">目前無待辦事項</div>
+            <!-- 透過v-if/v-else來判斷顯示內容 -->
         </div>
     </div>
 
@@ -47,12 +48,12 @@
         new Vue({
             el: '#app',
             data: {
-                text: false,
+                text: false, // 預設無資料載入時，顯示v-else內容
                 newList: '',
                 lists: [],
             },methods: {
                 add(){
-                    if(this.newList.trim() === '') return;
+                    if(this.newList.trim() === '') return; // 判斷輸入是否為空值
                     this.text = true;
                     this.lists.push(this.newList);
                     this.newList = '';
