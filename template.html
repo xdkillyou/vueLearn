@@ -10,6 +10,15 @@
 <body>
     <div id="app">我是本來的內容</div>
 
+    <div id="app2">
+        <div v-for='(value,key) in obj'>
+            <template>
+                <h2>name: {{key}}</h2><span>age: {{value}}</span>
+            </template>
+            <!-- 也可以直接寫在html中 -->
+        </div>
+    </div>
+
     <script>
         new Vue({
             el: '#app',
@@ -20,6 +29,17 @@
             template: '<div><h1>{{name}}</h1><p>{{text}}</p></div>',
             // template有個特點，只能有一個最外層的父層，不能有兩個同層的父層，但可以有多個子層
             // 定義好後會掛載上去會覆蓋(無視)原本的內容
+        });
+        new Vue({
+            el: '#app2',
+            data:{
+                obj: {
+                    tony : 22,
+                    chris : 24,
+                    max : 18,
+                    jax : 52
+                }
+            },
         });
     </script>
 </body>

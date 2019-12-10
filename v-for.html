@@ -24,6 +24,16 @@
         <div v-for='(item,key) in items'>{{key}}:{{item}}</div>
         <!-- 可以塞入兩個變數(value,key) -->
     </div>
+
+    <div id="app2">
+        <ul>
+            <li v-for='(item,index) in items' :key='item.id'>{{item.name}}</li>
+            <!-- v-bind:key的作用主要是為了高效的更新虛擬DOM(virtual DOM)。也為了讓vue可以區分他們 -->
+            <!-- 根據key值判斷是否需要修改，若無則複用之前元素，若有修改則只重新render修改內容 -->
+            <!-- key使用唯一值，items陣列物件中唯一值 -->
+        </ul>
+    </div>
+
     <script>
         new Vue({
             el: '#app',
@@ -45,6 +55,27 @@
                     this.lists.push(this.newList);
                     this.newList = '';
                 }
+            },
+        });
+
+        new Vue({
+            el: '#app2',
+            data: {
+                items: [
+                    {
+                        id: 1,
+                        name: 'asia',
+                    },{
+                        id: 2,
+                        name: 'usa',
+                    },{
+                        id: 3,
+                        name: 'japan',
+                    },{
+                        id: 4,
+                        name: 'asia',
+                    }
+                ],
             },
         })
     </script>

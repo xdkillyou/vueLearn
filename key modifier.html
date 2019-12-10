@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>key modifier</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        Enter:<input type="text" @keypress.enter='enterText'>
+        delete:<input type="text" @keydown.delete='enterText'>  <!-- delete沒有keypress -->
+        tab:<input type="text" @keydown.tab='enterText'>        <!-- tab沒有keypress -->
+        esc:<input type="text" @keydown.esc='enterText'>        <!-- esc沒有keypress -->
+        space:<input type="text" @keypress.space='enterText'>
+        up:<input type="text" @keydown.up='enterText'>          <!-- up沒有keypress -->
+        down:<input type="text" @keydown.down='enterText'>      <!-- down沒有keypress -->
+        left:<input type="text" @keydown.left='enterText'>      <!-- left沒有keypress -->
+        right:<input type="text" @keydown.right='enterText'>    <!-- right沒有keypress -->
+    </div>
+
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+
+            },
+            methods: {
+                enterText(e){
+                    console.log(e.key);
+                }
+            },
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>event modifier</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+    <style>
+        #app{
+            width: 1200px;
+            height: 1200px;
+        }
+        .box{
+            width: 30%;
+            height: 30%;
+            border: solid 1px black;
+        }
+    </style>
+
+<body>
+    <div id="app">
+        <div class="box" @click='pop'>A
+            <div class="box" @click='pop'>B
+                <div class="box" @click.stop='pop'>C</div> 
+                <!-- stop修飾符-預防冒泡事件 -->
+            </div>
+        </div>
+        <a href="https://cn.vuejs.org/v2/guide/installation.html" @click.prevent>gogogo</a>
+        <!-- prevent修飾符-取消預設行為 -->
+        <button @click.once='sayhi'>hi</button>
+        <!-- once修飾符-綁定的事件只執行一次 -->
+        <div class="box" @click.self='sayhi'>
+            <!-- self修飾符-事件發生在自己身上才執行 -->
+            <div class="box" @click='pop'></div>
+        </div>
+        <div class="box" @click='pop'>A
+            <div class="box" @click.capture='sayhi'>B
+                <div class="box" @click='pop'>C</div> 
+                <!-- capture修飾符-在捕捉過程優先執行 -->
+                <!-- 點擊c時: 先執行捕捉事件A->B->C，在執行冒泡事件C->B->A -->
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                text: 'hi',
+                name: 'chris',
+            },
+            methods:{
+                pop(e){
+                    console.log(this);
+                },
+                sayhi(){
+                    console.log(this.text);
+                },
+            }
+        })
+    </script>
+</body>
+</html>

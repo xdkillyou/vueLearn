@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>system modifier</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+    <style>
+        .box{
+            width: 300px;
+            height: 300px;
+            border: solid 1px;
+        }
+    </style>
+
+<body>
+    <div id="app">
+        <input type="text" @keyup.ctrl.z='entertext'>
+        <!-- 系統修飾符要搭配其他按鍵使用，ctrl/alt/shift/meta沒有任何行為 -->
+        <button @click.ctrl.exact="onClick">A</button>
+        <!-- exact修飾符-更精確的控制點擊的修飾符/
+            不加的話我按ctrl+click+隨便哪個鍵一樣會執行 -->
+        <div class="box" @click.left='mouseclick'></div>
+        <!-- 滑鼠修飾符-click event判斷left/right/middle -->
+    </div>
+    
+    <script>
+        new Vue({
+            el: '#app',
+            methods: {
+                entertext(e){
+                    console.log(e.key);
+                },
+                onClick(){
+                    console.log('what');
+                },
+                mouseclick(e){
+                    console.log(e.button);
+                }
+            },
+        })
+    </script>
+</body>
+</html>
