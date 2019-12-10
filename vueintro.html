@@ -33,7 +33,7 @@
             // 掛載 - 與html做連結
             el : "#app",    // 掛載的物件，習慣用id，用class只會綁定到第一筆
             // el : document.getElementById('app'),    // 有兩種不同表達方式
-            data : {        // 響應式資料
+            data : {        // 資料，狀態
                 message : "hello world"
             }
         })   
@@ -56,6 +56,17 @@
         vm.$mount('#app3');
         vm.$mount(document.getElementById('app3'));
     
+
+        var data = {
+            x: 10,
+            y: 20
+        }
+        var vm2 = new Vue({
+            el: '',
+            data: data // 從外部引入data
+        })
+        console.log(vm2.$data.x) //可以利用$data從外部呼叫data，少用 知道就好
+        
     </script>
 </body>
 </html>

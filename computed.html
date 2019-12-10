@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>computed</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <input type="text" v-model='a'> + 
+        <input type="text" v-model='b'> =
+        <!-- <span>{{c}}</span> -->
+        <input type="text" v-model='c'>
+        <!-- 呼叫c -->
+    </div>
+
+    <script>
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                a: 0,
+                b: 0
+            },
+            computed: { // computed與methods不同在於，computed一定要return一個值。雙向綁定
+                // c(){    // 宣告成函式
+                //     return parseInt(this.a,10)+parseInt(this.b,10);
+                //     // parseInt(value,10進位) 也可以16進位...等
+                // }
+                c: {    // 也可以宣告成物件
+                    get(){  // 呼叫，取用c時會執行get
+                        return parseInt(this.a,10)+parseInt(this.b,10);
+                    },
+                    set(val){  // 設定c時會執行set，設定時會代入value
+                        this.b = parseInt(val,10) - parseInt(this.a,10);
+                    },
+                }
+            }
+        })
+        console.log(vm.c);   // 會執行set
+    </script>    
+</body>
+</html>

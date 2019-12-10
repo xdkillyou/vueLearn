@@ -35,7 +35,8 @@
         <hr>
         <h3>代辦事項</h3>
         <div id="pad">
-            <ol v-if='text'>
+            <!-- <ol v-if='text'> -->
+            <ol v-if='lists.length !== 0'> <!-- 另一種方法，不給變數用表達式判斷 -->
                 <li class="listItem" v-for='(list,index) in lists'>{{list}}<span @click='deleteList(index)'>&times</span></li>
                 <!-- click觸發deleteList()，將前面v-for的index值帶入function -->
             </ol>
@@ -48,21 +49,21 @@
         new Vue({
             el: '#app',
             data: {
-                text: false, // 預設無資料載入時，顯示v-else內容
+                // text: false, // 預設無資料載入時，顯示v-else內容
                 newList: '',
                 lists: [],
             },methods: {
                 add(){
                     if(this.newList.trim() === '') return; // 判斷輸入是否為空值
-                    this.text = true;
+                    // this.text = true;
                     this.lists.push(this.newList);
                     this.newList = '';
                 },
                 deleteList(index){
                     this.lists.splice(index,1);
-                    if(this.lists.length == 0){
-                        this.text = !this.text;
-                    }
+                    // if(this.lists.length == 0){
+                    //     this.text = !this.text;
+                    // }
                 }
             },
         })

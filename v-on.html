@@ -38,6 +38,12 @@
                 add(){
                     this.count+=1;
                     // this指向vue實例
+                },
+                add2(){
+                    this.add()
+                    // 也可以指向函式
+                    // methods中不能使用arrow function，因為指向的this為使用的物件，可是沒有物件呼叫他
+                    // 於是會變global物件
                 }
             }
         })
