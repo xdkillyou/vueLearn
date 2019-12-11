@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>watch</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <input type="number" v-model='a'>
+        <input type="number" v-model='b'>
+        <input type="text" v-model='c'>
+        <input type="number" v-model='d'>
+        <input type="number" v-model='obj.value'>
+    </div>
+
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                a: 0,
+                b: 0,
+                d: 0,
+                obj: {
+                    value: 0,
+                }
+            },
+            computed: {
+                c(){
+                    return parseInt(this.a,10) * parseInt(this.b,10);
+                }
+            },
+            watch: {
+                // 偵聽器，與其他options不同的是，watch中要監聽的data，名字要與data一樣
+                // 會偵聽data的變化，一有變化就會執行
+                a(val,oldval){
+                    // watch監聽的function中有兩個參數，val,oldval
+                    console.log('a變化了',oldval+"->"+val);
+                },
+                b(val,oldval){
+                    console.log('b變化了',oldval+"->"+val);
+                },
+                // 除了監聽data中的值，也可以監聽computed中的變化
+                c(val,oldval){
+                    console.log('c變化了',oldval+"->"+val);
+                },
+                // 進階用法是寫成物件
+                d: {
+                    handler(val,oldval){
+                        console.log('d變化了',oldval+"->"+val);
+                    },
+                    immediate: true,    // immediate為true時，在建立實例初始化時就偵聽
+                },
+                obj: {
+                    handler(val,oldval){
+                        console.log('obj內容變化了',oldval.value+"->"+val.value);
+                        // 為什麼val=oldval，因為偵聽的為obj而不是obj.value，obj是一樣的
+                    },
+                    deep: true, // deep為true時，應用在偵聽陣列或物件內的變化
+                }
+            },
+        })
+    </script>
+</body>
+</html>
