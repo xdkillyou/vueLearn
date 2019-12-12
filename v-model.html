@@ -45,6 +45,14 @@
             <option value="three">3</option>
         </select>
         <p>你要選:{{selectwhat}}</p>
+
+        <hr>
+        <!-- select動態生成 -->
+        <select v-model='selectwhat2' @change='show'>
+            <option disabled value="">請選擇</option>
+            <option v-for='item in items' v-bind:value="item">{{item}}</option>
+        </select>
+        <p>你要選:{{selectwhat}}</p>
     </div>
 
     <script>
@@ -56,6 +64,8 @@
                 dothing : [],
                 pick : '',
                 selectwhat: '',
+                items: ['a','b','c','d'],
+                selectwhat2: '',
             },
             methods : {
                 check(){
@@ -63,6 +73,9 @@
                 },
                 changeboo(){
                     this.checkItem = !this.checkItem;
+                },
+                show(e){
+                    console.log(e.srcElement.value);
                 }
             },
         })

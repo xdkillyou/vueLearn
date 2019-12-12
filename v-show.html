@@ -14,13 +14,19 @@
         <button @click='showChange'>click</button>
         <hr>
         <div v-show='show'>嗨我要消失了</div>
+        <!-- template不能搭配v-show使用 -->
+        <template v-show='space'>
+        <template v-if='space'>
+            <div>{{show}}</div>
+        </template>
     </div>
 
     <script>
         new Vue({
             el: '#app',
             data: {
-                show: true
+                show: true,
+                space: false,
             },
             methods: {
                 showChange(){

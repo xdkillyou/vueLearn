@@ -7,6 +7,11 @@
     <title>v-bind</title>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 </head>
+    <style>
+        .blue{
+            color: blue;
+        }
+    </style>
 <body>
     <div id="app">
         <!-- v-bind - 為單向綁定，只render一次 -->
@@ -17,11 +22,17 @@
         {{count}}
         <div :class='classAll'>你好</div>
         <!-- v-bind的縮寫:，可以利用陣列一次添加多個class -->
-        <div class="cool" :class='[select ? classAll[0] : classAll[1]]'></div>
+        <div class="cool" :class='[select ? classAll[0] : classAll[1]]'>zzz</div>
         <!-- 利用三元來判斷使用之class -->
-        <div :class=obj.new></div>
+        <div :class=obj.new>看class name</div>
         <!-- 個別抓取object內容 -->
-        <div :style='inlineStyle'></div>
+        <div :style='inlineStyle'>嗨嗨</div>
+        <!-- 把css寫在data中，inline-style -->
+        <div :class='{ blue: select }'>我看看</div>
+        <!-- {定義好的class: 判斷式} -->
+        <div :class="'blue'">hello</div>
+        <!-- "'定義好的class'" -->
+        <div :data-id='obj.new'>data-attribute</div>
     </div>
 
     <script>
@@ -42,8 +53,9 @@
                 classAll : ['name','name2'],
                 inlineStyle : {
                     color : 'red',
-                    fontSize : '16px'
-                    // 要寫進style的要改成駝峰式fontSize
+                    // fontSize : '32px'
+                    'font-size' : '32px'
+                    // 要寫進style的要改成駝峰式fontSize，或是用引號包
                 },
             }
         })
