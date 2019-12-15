@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>countPrj</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <h3 :style='h3Style'>Chris</h3>
+        <button @click='countMath'>click</button>
+    </div>
+
+    <script>
+        new Vue({
+            el: '#app',
+            data:{
+                size: 60,
+            },
+            computed: {
+                h3Style(){
+                    return {
+                        fontSize: this.size +"px"
+                    }
+                }
+            },
+            methods: {
+                countMath(){
+                    this.size--;
+                }
+            },
+        })
+    </script>
+</body>
+</html>

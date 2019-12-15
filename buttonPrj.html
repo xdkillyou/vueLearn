@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>buttonProject</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+    <style>
+        .submit{
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 4px 8px;
+        }
+        .submit.display{
+            background-color: #aaa;
+        }
+    </style>
+<body>
+    <div id="app">
+        <input type="text" v-model='text' @change='check'>
+        <button class="submit" :class='[check? show:none]'>submit</button>
+    </div>
+
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                text: '',
+                show: 'submit',
+                none: 'display'
+            },
+            computed: {
+                check(){
+                    if(this.text.length>0){
+                        return true;
+                    }else{
+                        return false;
+                    }
+                }  
+            },
+        })
+    </script>
+
+    <div id="app1">
+        <input type="text" v-model='text' @change='check'>
+        <button :class='check'>submit</button>
+    </div>
+
+    <script>
+        new Vue({
+            el: '#app1',
+            data: {
+                text: '',
+            },
+            computed: {
+                check(){
+                    if(this.text.length===0){
+                        return 'submit display';
+                    }else{
+                        return 'submit'
+                    }
+                }  
+            },
+        })
+    </script>
+
+    <div id="app2">
+        <input type="text" v-model='text' @change='check'>
+        <button :class='check'>submit</button>
+    </div>
+
+    <script>
+        new Vue({
+            el: '#app2',
+            data: {
+                text: '',
+            },
+            computed: {
+                check(){
+                    return {
+                        submit: true,
+                        display: this.text.length===0
+                    }
+                }  
+            },
+        })
+    </script>
+</body>
+</html>
