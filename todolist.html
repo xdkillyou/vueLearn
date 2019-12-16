@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>todolist</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+    <style>
+        ul{
+            list-style: none;
+        }
+    </style>
+<body>
+    <div id="app">
+        <div class="header">
+            <input type="text" v-model='listText' @keyup.enter='add'>
+            <button @click='add'>Add</button>
+        </div>
+        <div class="frame" :is='frameShow'  :all-list-prop='allList' 
+                                            :unfinish-list-prop='unfinishList'
+                                            :finish-list-prop='finishList'>
+        </div>
+        <div class="footer">
+            <a href="javascript:;" @click='frameShow="all"'>All({{allList.length}})</a>
+            <a href="javascript:;" @click='frameShow="unfinish"'>unfinish({{unfinishList.length}})</a>
+            <a href="javascript:;" @click='frameShow="finish"'>finish({{finishList.length}})</a>
+        </div>
+    </div>
+
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                listText: '',       //input值
+                frameShow: 'all',   //預設顯示
+                allList: [],        //全部
+                unfinishList: [],   //未完成
+                finishList: [],     //完成
+            },
+            methods: {
+                add(){              //新增
+                    if(this.listText.trim()==='') return;
+                    this.allList.push(this.listText.trim());
+                    this.unfinishList.push(this.listText.trim());
+                    this.listText = '';
+                },
+                
+            },
+            components: {
+                'all':{
+                    template: '<div><ul v-if="allListProp.length!=0"><li v-for="(list,index) in allListProp">{{index+1}}.&nbsp{{list}}</li></ul><h3 v-else>目前無任何事項</h3></div>',
+                    props: ['allListProp'],
+                },
+                'unfinish':{
+                    template: '<div><ul v-if="unfinishListProp.length!=0"><li v-for="(list,index) in unfinishListProp">{{index+1}}.&nbsp{{list}}</li></ul><h3 v-else>目前無任何事項</h3></div>',
+                    props: ['unfinishListProp'],
+                },
+                'finish':{
+                    template: '<div><ul v-if="finishListProp.length!=0"><li v-for="(list,index) in finishListProp">{{index+1}}.&nbsp{{list}}</li></ul><h3 v-else>目前無任何事項</h3></div>',
+                    props: ['finishListProp'],
+                }
+            }
+        })
+    </script>
+</body>
+</html>
