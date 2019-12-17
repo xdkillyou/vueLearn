@@ -11,16 +11,24 @@
         ul{
             list-style: none;
         }
+        .line-through{
+            text-decoration: line-through;
+        }
+        .disable{
+
+        }
     </style>
 <body>
     <div id="app">
         <div class="header">
-            <input type="text" v-model='listText' @keyup.enter='add'>
+            <input type="text" v-model.trim='listText' @keyup.enter='add' :disabled='inputNone'>
             <button @click='add'>Add</button>
         </div>
         <div class="frame" :is='frameShow'  :all-list-prop='allList' 
                                             :unfinish-list-prop='unfinishList'
-                                            :finish-list-prop='finishList'>
+                                            :finish-list-prop='finishList'
+                                            @del='delEmit'
+                                            >
         </div>
         <div class="footer">
             <a href="javascript:;" @click='frameShow="all"'>All({{allList.length}})</a>
@@ -30,23 +38,35 @@
     </div>
 
     <script>
-        new Vue({
+        var vm = new Vue({
             el: '#app',
             data: {
+                inputNone: false,
                 listText: '',       //input值
-                frameShow: 'all',   //預設顯示
-                allList: [],        //全部
+                frameShow: 'unfinish',   //預設顯示
                 unfinishList: [],   //未完成
-                finishList: [],     //完成
+                finishList: ['a','v'],     //完成
+                // allList:        //全部
             },
             methods: {
                 add(){              //新增
-                    if(this.listText.trim()==='') return;
-                    this.allList.push(this.listText.trim());
-                    this.unfinishList.push(this.listText.trim());
+                    if(this.listText==='') return;
+                    // this.allList.push(this.listText);
+                    this.unfinishList.push(this.listText);
                     this.listText = '';
                 },
-                
+                delEmit(index){
+                    this.unfinishList.splice(index,1);
+                },
+                none(){
+                    console.log(this.inputNone);
+                    this.inputNone = !this.inputNone;
+                }
+            }, 
+            computed: {
+                allList(){
+                    return this.unfinishList.concat(this.finishList);
+                }
             },
             components: {
                 'all':{
@@ -54,11 +74,16 @@
                     props: ['allListProp'],
                 },
                 'unfinish':{
-                    template: '<div><ul v-if="unfinishListProp.length!=0"><li v-for="(list,index) in unfinishListProp">{{index+1}}.&nbsp{{list}}</li></ul><h3 v-else>目前無任何事項</h3></div>',
+                    template: '<div><ul v-if="unfinishListProp.length!=0"><li v-for="(list,index) in unfinishListProp" @click="del(index)">{{index+1}}.&nbsp{{list}}</li></ul><h3 v-else>目前無任何事項</h3></div>',
                     props: ['unfinishListProp'],
+                    methods: {
+                        del(index){
+                            this.$emit('del',index);
+                        }
+                    }
                 },
                 'finish':{
-                    template: '<div><ul v-if="finishListProp.length!=0"><li v-for="(list,index) in finishListProp">{{index+1}}.&nbsp{{list}}</li></ul><h3 v-else>目前無任何事項</h3></div>',
+                    template: '<div><ul v-if="finishListProp.length!=0"><li class="line-through" v-for="(list,index) in finishListProp">{{index+1}}.&nbsp{{list}}</li></ul><h3 v-else>目前無任何事項</h3></div>',
                     props: ['finishListProp'],
                 }
             }
