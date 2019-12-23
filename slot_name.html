@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>slot_name</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <box>
+            <p>i dont have any name</p>
+            <p slot='content'>i have a name</p>
+            <!-- slot='name' -->
+        </box>
+    </div>
+
+    <script>
+        let box = Vue.extend({
+            template: `
+            <div>
+                <h3>title</h3>
+                <slot name='content'></slot>                  
+            </div>`,
+            // 可以利用slot的name來判斷寫入的內容
+        });
+
+
+        new Vue({
+            el: '#app',
+            components: {
+                box
+            }
+        })
+    </script>
+</body>
+</html>
