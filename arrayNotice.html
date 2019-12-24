@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>array 操作</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <ul>
+            <li v-for='num in nums'>{{num}}</li>
+        </ul>
+        <button @click='reverse'>reverse</button>
+        <button @click='filter'>filter</button>
+        <button @click='sort'>sort</button>
+        <button @click='all'>all</button>
+    </div>
+
+    <script>
+        let nums = [5, 7, 1, 2, 3, 9, 4, 8, 6];
+        new Vue({
+            el: '#app',
+            data: {
+                nums
+            },
+            methods: {
+                reverse() {
+                    this.nums = this.nums.slice().reverse();
+                    // 使用reverse()會修改原陣列，透過slice()先回傳新陣列操作(小技巧)
+                },
+                filter() {
+                    this.nums = this.nums.filter(el => el % 2 === 0);
+                    // filter會回傳新陣列
+                },
+                sort() {
+                    this.nums = this.nums.slice().sort((a, b) => a - b)
+                },
+                all() {
+                    this.nums = nums;
+                    // 在取用外部宣告nums
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
